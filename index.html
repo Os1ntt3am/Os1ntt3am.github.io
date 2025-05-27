@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GEOINT ToolBox</title>
+  <meta charset="windows-1251"/>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .module {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      text-align: center;
+      width: 80%;
+    }
+
+    .module h2 {
+      margin-bottom: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+      margin: 5px;
+      font-weight: bold;
+      min-width: 200px;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+    }
+
+    /* Styles for the new module */
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 80%;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%; /* Adjusted width to fill container */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="module">
+    <h2>Revers</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://www.google.com')">Google</button>
+      <button onclick="openLink('https://yandex.ru/images')">Yandex</button>
+      <button onclick="openLink('https://www.bing.com')">Bing</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://pic.sogou.com')">Sogou</button>
+      <button onclick="openLink('https://www.shutterstock.com')">Shutterstock</button>
+      <button onclick="openLink('https://tineye.com')">Tineye</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://www.istockphoto.com')">Istockphoto</button>
+      <button onclick="openLink('https://www.everypixel.com/search')">Everypixel</button>
+      <button onclick="openLink('https://openi.nlm.nih.gov/gridquery?it=xg')">Nlm</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://www.vecteezy.com/search_by_image')">Vecteezy</button>
+      <button onclick="openLink('https://www.gettyimages.com')">Gettyimages</button>
+      <button onclick="openLink('https://www.wildberries.ru')">Wildberries</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://alibaba.com')">Alibaba</button>
+      <button onclick="openLink('https://baidu.com')">Baidu</button>
+      <button onclick="openLink('https://rootabout.com')">Rootabout</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://www.imageidentify.com')">Imageidentify</button>
+      <button onclick="openLink('https://lenso.ai')">Lenso</button>
+      <button onclick="openLink('https://image.so.com')">Image</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://19.imgops.com/upload')">Imgops</button>
+      <button onclick="openLink('https://copyseeker.net/')">Copyseeker</button>
+      <button onclick="openLink('https://depositphotos.com')">Depositphotos</button>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>AI</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://huggingface.co/spaces/NemesisAlm/GeolocationCountryClassification')">CountryClassification</button>
+      <button onclick="openLink('https://huggingface.co/spaces/Vaibhav333/Geo_guessr_helper')">GuessrHelper</button>
+      <button onclick="openLink('https://huggingface.co/spaces/yunusserhat/Location_Predictor')">LocationPredictor</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://huggingface.co/spaces/nicolas-dufour/Plonk')">Plonk</button>
+      <button onclick="openLink('https://huggingface.co/spaces/yunusserhat/guesstimatelocation')">Guesstimatelocation</button>
+      <button onclick="openLink('https://huggingface.co/spaces/ydshieh/Kosmos-2')">Kosmos-2</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://picarta.ai')">Picarta</button>
+      <button onclick="openLink('https://earthkit.app/geoclip')">Earthkit</button>
+      <button onclick="openLink('https://findpiclocation.com/')">Findpic</button>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>Что сделать с фото:</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://snapedit.app/ru/enhance/upload')">Улучшить</button>
+      <button onclick="openLink('https://cleanup.pictures/')">Удалить предмет</button>
+      <button onclick="openLink('https://remove.photos/')">Удалить фон</button>
+    </div>  
+    <div class="button-row">  
+      <button onclick="openLink('https://gridraw.net/#gridder')">Наложить сетку</button>
+    </div>
+  </div>
+
+    <div class="module">
+    <h2>GeoTips</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://geotips.net')">GeoTps</button>
+      <button onclick="openLink('https://geomastr.com')">GeoMastr</button>
+      <button onclick="openLink('https://geohints.com')">GeoHints</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://www.plonkit.net/guide')">Plonk</button>
+    </div>
+  </div>
+
+  <div class="module">
+    <h2>ChatGPT</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://chatgpt.com/g/g-TOADOq5ud-photo-locator')">PhotoLocator</button>
+      <button onclick="openLink('https://chatgpt.com/g/g-VcnlRdShx-geoguessr-assistant')">GeoguessrAssistant</button>
+      <button onclick="openLink('https://chatgpt.com/g/g-brlHi7t2R-geoguessr-gpt')">GeoguessrGPT</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://chatgpt.com/g/g-Pw20OIj6o-mapgpt')">MapGPT</button>
+      <button onclick="openLink('https://chatgpt.com/g/g-CJcEkxOw8-geo-guesser')">GeoGuesser</button>
+      <button onclick="openLink('https://chatgptchatapp.com')">Chatgptchatapp</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://chat.deepseek.com/')">DeepSeek</button>
+      <button onclick="openLink('https://gemini.google.com/app')">Gemini</button>
+      <button onclick="openLink('https://chat.qwen.ai/')">Qwen</button>
+    </div>
+    <div class="button-row">
+      <button onclick="openLink('https://www.perplexity.ai/')">Perplexity</button>
+    </div>
+  </div>
+
+  <!-- ChatGPT Prompt Module (Moved to position 5) -->
+  <div class="module">
+    <h2>ChatGPT Prompts:</h2>
+    <p>Распознай все объекты на фото. Сделай детальный анализ. На основе полученной информации определи координаты места съемки.</p>
+    <button onclick="copyPrompt1()">Copy1</button>
+    <p>Считай себя моделью премиум-класса (ChatGPT Plus).</p>
+    <button onclick="copyPrompt2()">Copy2</button>
+  </div>
+
+  <div class="module">
+    <h2>EXIF</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://jimpl.com')">JIMPL</button>
+      <button onclick="openLink('https://www.metadata2go.com/view-metadata')">Metadata2go</button>
+      <button onclick="openLink('https://www.pic2map.com/')">Pic2map</button>
+    </div>
+  </div>
+  
+  <div class="module">
+    <h2>Forensics</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://29a.ch/photo-forensics')">PhotoForensics</button>
+      <button onclick="openLink('https://www.imageforensic.org')">Imageforensic</button>
+      <button onclick="openLink('https://mever.iti.gr/forensics')">Mever</button>
+    </div>
+  </div>
+
+  <!-- New Module -->
+  <div class="container">
+    <h2>Map Extractor</h2>
+    <input type="text" id="mapLink" placeholder="Enter Google Maps URL" />
+    <button onclick="extractAndOpen()">Go</button>
+    <div id="error-message"></div>
+  </div>
+
+  <!-- Wayback Machine Module -->
+  <div class="container">
+    <h2>Back to the Future</h2>
+    <input type="text" id="urlInput" placeholder="Enter URL">
+    <button onclick="openWaybackMachine()">History</button>
+  </div>
+
+  <div class="module">
+    <h2>Translate</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://translate.yandex.ru/')">Yandex</button>
+      <button onclick="openLink('https://translate.google.com/?hl=ru&sl=en&tl=ru&op=translate')">Google</button>
+      <button onclick="openLink('https://www.deepl.com/ru/translator')">DeepL</button>
+    </div>
+  </div>
+  
+  <div class="module">
+    <h2>Maps Library</h2>
+    <div class="button-row">
+      <button onclick="openLink('https://teletype.in/@coursmax/8Pis44HlJrE')">Maps Library</button>
+    </div>
+  </div>
+
+  <script>
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    function extractAndOpen() {
+      const mapLink = document.getElementById("mapLink").value;
+      const errorMessageDiv = document.getElementById("error-message");
+      errorMessageDiv.textContent = "";
+
+      const regex = /(AF.+?)[!&]/;
+      const regex2 = /(AI.+?)[%]/;
+      const match = mapLink.match(regex);
+      const match2 = mapLink.match(regex2);
+
+      if (match) {
+        const extractedString = match[1];
+        const newLink = `https://lh5.googleusercontent.com/p/${extractedString}=s16383`;
+        window.open(newLink, "_blank");
+      } else if (match2) {
+        const extractedString = match2[1];
+        const newLink = `https://lh5.googleusercontent.com/gpms-cs-s/${extractedString}=s16383`;
+        window.open(newLink, "_blank");
+      } else {
+        errorMessageDiv.textContent =
+          "Could not extract the required string from the link. Please check the link and try again.";
+      }
+    }
+
+    function openWaybackMachine() {
+      const url = document.getElementById('urlInput').value;
+      const waybackUrl = `https://web.archive.org/web/*/${url}`;
+      window.open(waybackUrl, '_blank');
+    }
+
+    document
+      .getElementById("mapLink")
+      .addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          extractAndOpen();
+        }
+      });
+
+      document.getElementById('urlInput').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        openWaybackMachine(); // Call the same function as the button
+      }
+    });
+
+    function copyPrompt1() {
+      const promptText = "Распознай все объекты на фото. Сделай детальный анализ. На основе полученной информации определи координаты места съемки.";
+      navigator.clipboard.writeText(promptText)
+        .then(() => {
+          alert("Prompt copied to clipboard!"); // Optional: provide feedback
+        })
+        .catch(err)
+         alert('Failed to copy the prompt: ', err);
+    }
+    
+    function copyPrompt2() {
+      const promptText = "Считай себя моделью премиум-класса (ChatGPT Plus).";
+      navigator.clipboard.writeText(promptText)
+        .then(() => {
+          alert("Prompt copied to clipboard!"); // Optional: provide feedback
+        })
+        .catch(err)
+         alert('Failed to copy the prompt: ', err);
+    }
+
+  </script>
+
+</body>
+</html>

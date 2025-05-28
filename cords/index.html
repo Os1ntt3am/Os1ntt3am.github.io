@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевод координат (Широта/Долгота)</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .coordinate-pair {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        .input-group label {
+            width: 100px;
+            text-align: right;
+            margin-right: 5px;
+        }
+        .input-group input[type="text"] {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .input-group button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result-group {
+            margin-top: 10px;
+        }
+        #latitudeDecimalResult, #longitudeDecimalResult, #latitudeDMSResult, #longitudeDMSResult {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Перевод координат (Широта/Долгота)</h1>
+
+    <!-- Градусы в десятичные -->
+    <div class="container">
+        <h2>Градусы в десятичные</h2>
+
+        <div class="coordinate-pair">
+            <h3>Широта</h3>
+            <div class="input-group">
+                <label for="latitudeDegrees">Градусы:</label>
+                <input type="text" id="latitudeDegrees" placeholder="0">
+                <label for="latitudeMinutes">Минуты:</label>
+                <input type="text" id="latitudeMinutes" placeholder="0">
+                <label for="latitudeSeconds">Секунды:</label>
+                <input type="text" id="latitudeSeconds" placeholder="0">
+                <button onclick="convertToDecimal('latitude')">Convert</button>
+            </div>
+            <div class="result-group">
+                <p>Результат:</p>
+                <span id="latitudeDecimalResult"></span>
+                <button onclick="copyToClipboard('latitudeDecimalResult')">Copy</button>
+            </div>
+        </div>
+
+        <div class="coordinate-pair">
+            <h3>Долгота</h3>
+            <div class="input-group">
+                <label for="longitudeDegrees">Градусы:</label>
+                <input type="text" id="longitudeDegrees" placeholder="0">
+                <label for="longitudeMinutes">Минуты:</label>
+                <input type="text" id="longitudeMinutes" placeholder="0">
+                <label for="longitudeSeconds">Секунды:</label>
+                <input type="text" id="longitudeSeconds" placeholder="0">
+                <button onclick="convertToDecimal('longitude')">Convert</button>
+            </div>
+            <div class="result-group">
+                <p>Результат:</p>
+                <span id="longitudeDecimalResult"></span>
+                <button onclick="copyToClipboard('longitudeDecimalResult')">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Десятичные в градусы -->
+    <div class="container">
+        <h2>Десятичные в градусы</h2>
+
+        <div class="coordinate-pair">
+            <h3>Широта</h3>
+            <div class="input-group">
+                <label for="latitudeDecimal">Десятичные:</label>
+                <input type="text" id="latitudeDecimal" placeholder="0.0">
+                <button onclick="convertToDMS('latitude')">Convert</button>
+            </div>
+            <div class="result-group">
+                <p>Результат:</p>
+                <span id="latitudeDMSResult"></span>
+                <button onclick="copyToClipboard('latitudeDMSResult')">Copy</button>
+            </div>
+        </div>
+
+        <div class="coordinate-pair">
+            <h3>Долгота</h3>
+            <div class="input-group">
+                <label for="longitudeDecimal">Десятичные:</label>
+                <input type="text" id="longitudeDecimal" placeholder="0.0">
+                <button onclick="convertToDMS('longitude')">Convert</button>
+            </div>
+            <div class="result-group">
+                <p>Результат:</p>
+                <span id="longitudeDMSResult"></span>
+                <button onclick="copyToClipboard('longitudeDMSResult')">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertToDecimal(coordinateType) {
+            let degrees, minutes, seconds, resultElementId;
+
+            if (coordinateType === 'latitude') {
+                degrees = parseFloat(document.getElementById('latitudeDegrees').value);
+                minutes = parseFloat(document.getElementById('latitudeMinutes').value);
+                seconds = parseFloat(document.getElementById('latitudeSeconds').value);
+                resultElementId = 'latitudeDecimalResult';
+            } else { // longitude
+                degrees = parseFloat(document.getElementById('longitudeDegrees').value);
+                minutes = parseFloat(document.getElementById('longitudeMinutes').value);
+                seconds = parseFloat(document.getElementById('longitudeSeconds').value);
+                resultElementId = 'longitudeDecimalResult';
+            }
+
+            if (isNaN(degrees) || isNaN(minutes) || isNaN(seconds)) {
+                alert('Пожалуйста, введите корректные числа для ' + coordinateType + '.');
+                return;
+            }
+
+            const decimal = degrees + (minutes / 60) + (seconds / 3600);
+            document.getElementById(resultElementId).textContent = decimal.toFixed(6);
+        }
+
+        function convertToDMS(coordinateType) {
+            let decimalInputId, resultElementId;
+
+            if (coordinateType === 'latitude') {
+                decimalInputId = 'latitudeDecimal';
+                resultElementId = 'latitudeDMSResult';
+            } else { // longitude
+                decimalInputId = 'longitudeDecimal';
+                resultElementId = 'longitudeDMSResult';
+            }
+
+            const decimal = parseFloat(document.getElementById(decimalInputId).value);
+
+            if (isNaN(decimal)) {
+                alert('Пожалуйста, введите корректное десятичное число для ' + coordinateType + '.');
+                return;
+            }
+
+            const degrees = Math.floor(decimal);
+            const minutes = Math.floor((decimal - degrees) * 60);
+            const seconds = ((decimal - degrees) * 60 - minutes) * 60;
+
+            const dmsString = `${degrees}° ${minutes}' ${seconds.toFixed(2)}"`
+            document.getElementById(resultElementId).textContent = dmsString;
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        alert('Скопировано в буфер обмена!');
+                    })
+                    .catch(err => {
+                        console.error('Не удалось скопировать (clipboard API): ', err);
+                        fallbackCopyTextToClipboard(text); // Попытка через fallback
+                    });
+            } else {
+                fallbackCopyTextToClipboard(text); // Попытка через fallback
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+
+          // Avoid scrolling to bottom of page in MS Edge.
+          textArea.style.top = "0";
+          textArea.style.left = "0";
+          textArea.style.position = "fixed";
+
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+
+          try {
+            const successful = document.execCommand('copy');
+            if (!successful) {
+              throw new Error('Не удалось скопировать');
+            }
+            alert('Скопировано в буфер обмена!');
+          } catch (err) {
+            console.error('Не удалось скопировать (fallback): ', err);
+            alert('Не удалось скопировать в буфер обмена. Пожалуйста, выделите текст и скопируйте вручную.');
+          } finally {
+            document.body.removeChild(textArea);
+          }
+        }
+    </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вычисление расстояния между координатами</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .coordinate-input {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .input-group label {
+            width: 120px; /* Увеличил ширину для удобства */
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        .input-group input[type="text"] {
+            width: 100px; /* Увеличил ширину для удобства */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .coordinate-type {
+            margin-bottom: 10px;
+        }
+
+        .coordinate-type label {
+            margin-right: 10px;
+        }
+
+        .calculate-button {
+            padding: 10px 15px; /* Уменьшил ширину кнопки */
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            align-self: flex-start; /* Выравниваем кнопку по левому краю */
+        }
+
+        #distanceResult {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .result-group {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Вычисление расстояния между координатами</h1>
+
+    <div class="container">
+        <h2>Координата 1</h2>
+        <div class="coordinate-input">
+            <div class="coordinate-type">
+                <label><input type="radio" name="coord1Type" value="decimal" checked> Десятичные</label>
+                <label><input type="radio" name="coord1Type" value="dms"> Градусы, минуты, секунды</label>
+            </div>
+            <div class="input-group">
+                <label for="lat1Decimal">Широта:</label>
+                <input type="text" id="lat1Decimal" placeholder="0.0">
+                <label for="lon1Decimal">Долгота:</label>
+                <input type="text" id="lon1Decimal" placeholder="0.0">
+            </div>
+            <div class="input-group" id="coord1DMS" style="display: none;">
+                <label for="lat1Degrees">Широта (град):</label>
+                <input type="text" id="lat1Degrees" placeholder="0">
+                <label for="lat1Minutes">Широта (мин):</label>
+                <input type="text" id="lat1Minutes" placeholder="0">
+                <label for="lat1Seconds">Широта (сек):</label>
+                <input type="text" id="lat1Seconds" placeholder="0">
+                <label for="lon1Degrees">Долгота (град):</label>
+                <input type="text" id="lon1Degrees" placeholder="0">
+                <label for="lon1Minutes">Долгота (мин):</label>
+                <input type="text" id="lon1Minutes" placeholder="0">
+                <label for="lon1Seconds">Долгота (сек):</label>
+                <input type="text" id="lon1Seconds" placeholder="0">
+            </div>
+        </div>
+
+        <h2>Координата 2</h2>
+        <div class="coordinate-input">
+            <div class="coordinate-type">
+                <label><input type="radio" name="coord2Type" value="decimal" checked> Десятичные</label>
+                <label><input type="radio" name="coord2Type" value="dms"> Градусы, минуты, секунды</label>
+            </div>
+            <div class="input-group">
+                <label for="lat2Decimal">Широта:</label>
+                <input type="text" id="lat2Decimal" placeholder="0.0">
+                <label for="lon2Decimal">Долгота:</label>
+                <input type="text" id="lon2Decimal" placeholder="0.0">
+            </div>
+            <div class="input-group" id="coord2DMS" style="display: none;">
+                <label for="lat2Degrees">Широта (град):</label>
+                <input type="text" id="lat2Degrees" placeholder="0">
+                <label for="lat2Minutes">Широта (мин):</label>
+                <input type="text" id="lat2Minutes" placeholder="0">
+                <label for="lat2Seconds">Широта (сек):</label>
+                <input type="text" id="lat2Seconds" placeholder="0">
+                <label for="lon2Degrees">Долгота (град):</label>
+                <input type="text" id="lon2Degrees" placeholder="0">
+                <label for="lon2Minutes">Долгота (мин):</label>
+                <input type="text" id="lon2Minutes" placeholder="0">
+                <label for="lon2Seconds">Долгота (сек):</label>
+                <input type="text" id="lon2Seconds" placeholder="0">
+            </div>
+        </div>
+
+        <button class="calculate-button" onclick="calculateDistance()">Вычислить расстояние</button>
+
+        <div class="result-group">
+            <p>Расстояние:</p>
+            <span id="distanceResult"></span>
+        </div>
+    </div>
+
+    <script>
+        const R = 6371; // Радиус Земли в километрах
+
+        function toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+
+        function calculateDistance() {
+            let lat1, lon1, lat2, lon2;
+
+            // Получение координат 1
+            let coord1Type = document.querySelector('input[name="coord1Type"]:checked').value;
+            if (coord1Type === 'decimal') {
+                lat1 = parseFloat(document.getElementById('lat1Decimal').value);
+                lon1 = parseFloat(document.getElementById('lon1Decimal').value);
+            } else {
+                lat1 = dmsToDecimal(
+                    parseFloat(document.getElementById('lat1Degrees').value),
+                    parseFloat(document.getElementById('lat1Minutes').value),
+                    parseFloat(document.getElementById('lat1Seconds').value)
+                );
+                lon1 = dmsToDecimal(
+                    parseFloat(document.getElementById('lon1Degrees').value),
+                    parseFloat(document.getElementById('lon1Minutes').value),
+                    parseFloat(document.getElementById('lon1Seconds').value)
+                );
+            }
+
+            // Получение координат 2
+            let coord2Type = document.querySelector('input[name="coord2Type"]:checked').value;
+            if (coord2Type === 'decimal') {
+                lat2 = parseFloat(document.getElementById('lat2Decimal').value);
+                lon2 = parseFloat(document.getElementById('lon2Decimal').value);
+            } else {
+                lat2 = dmsToDecimal(
+                    parseFloat(document.getElementById('lat2Degrees').value),
+                    parseFloat(document.getElementById('lat2Minutes').value),
+                    parseFloat(document.getElementById('lat2Seconds').value)
+                );
+                lon2 = dmsToDecimal(
+                    parseFloat(document.getElementById('lon2Degrees').value),
+                    parseFloat(document.getElementById('lon2Minutes').value),
+                    parseFloat(document.getElementById('lon2Seconds').value)
+                );
+            }
+
+            if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+                alert('Пожалуйста, введите корректные координаты.');
+                return;
+            }
+
+            const lat1Rad = toRadians(lat1);
+            const lon1Rad = toRadians(lon1);
+            const lat2Rad = toRadians(lat2);
+            const lon2Rad = toRadians(lon2);
+
+            const dLat = lat2Rad - lat1Rad;
+            const dLon = lon2Rad - lon1Rad;
+
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            const distance = R * c;
+
+            document.getElementById('distanceResult').textContent = distance.toFixed(2) + ' км';
+        }
+
+        function dmsToDecimal(degrees, minutes, seconds) {
+            if (isNaN(degrees) || isNaN(minutes) || isNaN(seconds)) {
+                return NaN;
+            }
+            return degrees + (minutes / 60) + (seconds / 3600);
+        }
+
+        // Добавляем обработчики событий для радиокнопок
+        document.querySelectorAll('input[name="coord1Type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('coord1DMS').style.display = this.value === 'dms' ? 'flex' : 'none';
+            });
+        });
+
+        document.querySelectorAll('input[name="coord2Type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('coord2DMS').style.display = this.value === 'dms' ? 'flex' : 'none';
+            });
+        });
+
+        // Инициализация скрытия/отображения полей DMS при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('coord1DMS').style.display = document.querySelector('input[name="coord1Type"]:checked').value === 'dms' ? 'flex' : 'none';
+            document.getElementById('coord2DMS').style.display = document.querySelector('input[name="coord2Type"]:checked').value === 'dms' ? 'flex' : 'none';
+        });
+
+    </script>
+
+</body>
+</html>

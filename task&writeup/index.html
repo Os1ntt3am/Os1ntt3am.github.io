@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task & Writeup Buttons</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .column {
+            width: 48%; /* Примерно половина ширины, минус отступы */
+        }
+
+        .button {
+            display: block; /* Чтобы кнопки занимали всю ширину колонки */
+            width: 100%;
+            padding: 8px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 5px; /* Отступ между кнопками в колонке */
+            box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
+            cursor: pointer; /* Изменение курсора при наведении */
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task & Writeup Links</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <h3>Task</h3>
+            </div>
+            <div class="column">
+                <h3>Writeup</h3>
+            </div>
+        </div>
+
+        <!-- Сюда будут добавлены кнопки -->
+        <div id="buttonContainer"></div>
+    </div>
+
+    <script>
+        const buttonContainer = document.getElementById('buttonContainer');
+
+        // Данные для ссылок
+        const taskLinks = [
+            "https://t.me/c/1867281438/946",
+            "https://t.me/c/1867281438/1939",
+            "https://t.me/c/1867281438/2940",
+            "https://t.me/c/1867281438/5832",
+            "https://t.me/c/1867281438/6582",
+            "https://t.me/c/1867281438/8744",
+            "https://t.me/c/1867281438/9633",
+            "https://t.me/c/1867281438/14715",
+            "https://t.me/c/1867281438/15016",
+            "https://t.me/c/1867281438/17204",
+            "https://t.me/c/1867281438/17638",
+            "https://t.me/c/1867281438/19355",
+            "https://t.me/c/1867281438/19799",
+            "https://t.me/c/1867281438/20850",
+            "https://t.me/c/1867281438/25696",
+            "https://t.me/c/1867281438/26018",
+            "https://t.me/c/1867281438/27460",
+            "https://t.me/c/1867281438/29466",
+            "https://t.me/c/1867281438/31833",
+            "https://t.me/c/1867281438/33135",
+            "https://t.me/c/1867281438/37415",
+            "https://t.me/c/1867281438/41492",
+            "https://t.me/c/1867281438/43847",
+            "https://t.me/c/1867281438/45841",
+            "https://t.me/c/1867281438/48482",
+            "https://t.me/c/1867281438/49127",
+            "https://t.me/c/1867281438/51000",
+            "https://t.me/c/1867281438/57986",
+            "https://t.me/c/1867281438/60940",
+            "https://t.me/c/1867281438/61531",
+            "https://t.me/c/1867281438/63504",
+            "https://t.me/c/1867281438/64365",
+            "https://t.me/c/1867281438/66852",
+            "https://t.me/c/1867281438/65481",
+            "https://t.me/c/1867281438/66897",
+            "https://t.me/c/1867281438/67881",
+            "https://t.me/c/1867281438/68825",
+            "https://t.me/c/1867281438/69696",
+            "https://t.me/c/1867281438/70040",
+            "https://t.me/c/1867281438/70945",
+            "https://t.me/c/1867281438/72052",
+            "https://t.me/c/1867281438/72867",
+            "https://t.me/c/1867281438/73233",
+            "https://t.me/c/1867281438/73521",
+            "https://t.me/c/1867281438/73842",
+            "https://t.me/c/1867281438/74284",
+            "https://t.me/c/1867281438/74797",
+            "https://t.me/c/1867281438/78934",
+            "https://t.me/c/1867281438/79405",
+            "https://t.me/c/1867281438/80585",
+            "https://t.me/c/1867281438/80722",
+            "https://t.me/c/1867281438/81403",
+            "https://t.me/c/1867281438/81611",
+            "https://t.me/c/1867281438/82348",
+            "https://t.me/c/1867281438/82777",
+            "https://t.me/c/1867281438/83433",
+            "https://t.me/c/1867281438/84161",
+            "https://t.me/c/1867281438/84269",
+            "https://t.me/c/1867281438/84379",
+            "https://t.me/c/1867281438/84624",
+            "https://t.me/c/1867281438/85382",
+            "https://t.me/c/1867281438/85783",
+            "https://t.me/c/1867281438/85940",
+            "https://t.me/c/1867281438/86947",
+            "https://t.me/c/1867281438/87387",
+            "https://t.me/c/1867281438/87502",
+            "https://t.me/c/1867281438/87983",
+            "https://t.me/c/1867281438/88474",
+            "https://t.me/c/1867281438/92288",
+            "https://t.me/c/1867281438/93625",
+            "https://t.me/c/1867281438/93721",
+            "https://t.me/c/1867281438/94023",
+            "https://t.me/c/1867281438/94645",
+            "https://t.me/c/1867281438/94911",
+            "https://t.me/c/1867281438/95722",
+            "https://t.me/c/1867281438/96345",
+            "https://t.me/c/1867281438/99159",
+            "https://t.me/c/1867281438/99305",
+            "https://t.me/c/1867281438/99932",
+            "https://t.me/c/1867281438/102423",
+            "https://t.me/c/1867281438/102637",
+            "https://t.me/c/1867281438/103908",
+            "https://t.me/c/1867281438/105838",
+            "https://t.me/c/1867281438/106335",
+            "https://t.me/c/1867281438/106584",
+            "https://t.me/c/1867281438/107006",
+            "https://t.me/c/1867281438/107548",
+            "https://t.me/c/1867281438/107642",
+            "https://t.me/c/1867281438/107760",
+            "https://t.me/c/1867281438/107920",
+            "https://t.me/c/1867281438/108274",
+            "https://t.me/c/1867281438/108609",
+            "https://t.me/c/1867281438/109683",
+            "https://t.me/c/1867281438/110085",
+            "https://t.me/c/1867281438/110131",
+            "https://t.me/c/1867281438/110333",
+            "https://t.me/c/1867281438/110463",
+            "https://t.me/c/1867281438/110506",
+            "https://t.me/c/1867281438/110550",
+            "https://t.me/c/1867281438/110644",
+            "https://t.me/c/1867281438/110876",
+            "https://t.me/c/1867281438/111419",
+            "https://t.me/c/1867281438/111763",
+            "https://t.me/c/1867281438/111972",
+            "https://t.me/c/1867281438/112302",
+            "https://t.me/c/1867281438/112570",
+            "https://t.me/c/1867281438/112988",
+            "https://t.me/c/1867281438/113103",
+            "https://t.me/c/1867281438/113178",
+            "https://t.me/c/1867281438/113418",
+            "https://t.me/c/1867281438/113531",
+            "https://t.me/c/1867281438/113700",
+            "https://t.me/c/1867281438/114342",
+            "https://t.me/c/1867281438/114453",
+            "https://t.me/c/1867281438/114653",
+            "https://t.me/c/1867281438/114761",
+            "https://t.me/c/1867281438/114923",
+            "https://t.me/c/1867281438/114977",
+            "https://t.me/c/1867281438/115046",
+            "https://t.me/c/1867281438/115076",
+            "https://t.me/c/1867281438/115114",
+            "https://t.me/c/1867281438/115134",
+            "https://t.me/c/1867281438/115261",
+            "https://t.me/c/1867281438/115336",
+            "https://t.me/c/1867281438/115426",
+            "https://t.me/c/1867281438/115477",
+            "https://t.me/c/1867281438/115572",
+            "https://t.me/c/1867281438/115706",
+            "https://t.me/c/1867281438/115771",
+            "https://t.me/c/1867281438/115808",
+            "https://t.me/c/1867281438/115899",
+            "https://t.me/c/1867281438/116178",
+            "https://t.me/c/1867281438/116231",
+            "https://t.me/c/1867281438/116390",
+            "https://t.me/c/1867281438/116900",
+            "https://t.me/c/1867281438/116977",
+            "https://t.me/c/1867281438/117087",
+            "https://t.me/c/1867281438/117192",
+            "https://t.me/c/1867281438/117421",
+            "https://t.me/c/1867281438/118796",
+            "https://t.me/c/1867281438/119132",
+            "https://t.me/c/1867281438/119239",
+            "https://t.me/c/1867281438/119425",
+            "https://t.me/c/1867281438/119621",
+            "https://t.me/c/1867281438/119901",
+            "https://t.me/c/1867281438/120433",
+            "https://t.me/c/1867281438/120496",
+            "https://t.me/c/1867281438/121084",
+            "https://t.me/c/1867281438/121257",
+            "https://t.me/c/1867281438/121586",
+            "https://t.me/c/1867281438/122086",
+            "https://t.me/c/1867281438/122473",
+            "https://t.me/c/1867281438/124170",
+            "https://t.me/c/1867281438/124311",
+            "https://t.me/c/1867281438/124988",
+            "https://t.me/c/1867281438/126047",
+            "https://t.me/c/1867281438/126801",
+            "https://t.me/c/1867281438/130552",
+            "https://t.me/c/1867281438/130967",
+            "https://t.me/c/1867281438/135991",
+            "https://t.me/c/1867281438/136801",
+            "https://t.me/c/1867281438/137367",
+            "https://t.me/c/1867281438/137434",
+            "https://t.me/c/1867281438/141510",
+            "https://t.me/c/1867281438/142052",
+            "https://t.me/c/1867281438/144791",
+            "https://t.me/c/1867281438/145468",
+            "https://t.me/c/1867281438/146243",
+            "https://t.me/c/1867281438/147153",
+            "https://t.me/c/1867281438/147299",
+            "https://t.me/c/1867281438/150047",
+            "https://t.me/c/1867281438/153193",
+            "https://t.me/c/1867281438/154365",
+            "https://t.me/c/1867281438/155656",
+            "https://t.me/c/1867281438/160273",
+            "https://t.me/c/1867281438/163361",
+            "https://t.me/c/1867281438/164183",
+            "https://t.me/c/1867281438/165926",
+            "https://t.me/c/1867281438/166203",
+            "https://t.me/c/1867281438/166684",
+            "https://t.me/c/1867281438/167990",
+            "https://t.me/c/1867281438/171677",
+            "https://t.me/c/1867281438/173604",
+            "https://t.me/c/1867281438/182571",
+            "https://t.me/c/1867281438/183207",
+            "https://t.me/c/1867281438/185276",
+            "https://t.me/c/1867281438/185837",
+            "https://t.me/c/1867281438/186130",
+            "https://t.me/c/1867281438/186981",
+            "https://t.me/c/1867281438/187935",
+            "https://t.me/c/1867281438/188124",
+            "https://t.me/c/1867281438/189762",
+            "https://t.me/c/1867281438/189959",
+            "https://t.me/c/1867281438/190765",
+            "https://t.me/c/1867281438/191028",
+            "https://t.me/c/1867281438/191308",
+            "https://t.me/c/1867281438/192777",
+            "https://t.me/c/1867281438/193681",
+            "https://t.me/c/1867281438/194751",
+            "https://t.me/c/1867281438/195494"
+        ];
+
+        const writeupLinks = [
+            "https://t.me/c/1867281438/946/1059",
+			"https://t.me/c/1867281438/1939/2345",
+			"https://t.me/c/1867281438/2940/4118",
+			"https://t.me/c/1867281438/5832/6438",
+			"https://t.me/c/1867281438/6582/7562",
+			"https://t.me/c/1867281438/8744/9167",
+			"https://t.me/c/1867281438/9633/12272",
+			"https://t.me/c/1867281438/14715/40719",
+			"https://t.me/c/1867281438/15016/15347",
+			"https://t.me/c/1867281438/17204/19854",
+			"https://t.me/c/1867281438/17638/19029",
+			"https://t.me/c/1867281438/19355/19809",
+			"https://t.me/c/1867281438/19799/21009",
+			"https://t.me/c/1867281438/20850/22522",
+			"https://t.me/c/1867281438/25696/26008",
+			"https://t.me/c/1867281438/26018/27495",
+			"https://t.me/c/1867281438/27460/29470",
+			"https://t.me/c/1867281438/29466/30739",
+			"https://t.me/c/1867281438/31833/32792",
+			"https://t.me/c/1867281438/33135/40505",
+			"https://t.me/c/1867281438/37415/41400",
+			"https://t.me/c/1867281438/41492/42678",
+			"https://t.me/c/1867281438/43847/44606",
+			"https://t.me/c/1867281438/45841/47527",
+			"https://t.me/c/1867281438/48482/49184",
+			"https://t.me/c/1867281438/49127/49716",
+			"https://t.me/c/1867281438/51000/57910",
+			"https://t.me/c/1867281438/57986/58218",,
+			"https://t.me/c/1867281438/60940/61395",
+			"https://telegra.ph/Reshenie-GEOINT-30-02-26",
+			"https://telegra.ph/Reshenie-GEOINT-31-03-08",
+			"https://telegra.ph/Reshenie-GEOINT-32-03-08",
+			"https://t.me/c/1867281438/65474/66806",
+			"https://t.me/c/1867281438/65481/65763",
+			"https://t.me/c/1867281438/66897",
+			"https://t.me/c/1867281438/67881/68738",
+			"https://t.me/c/1867281438/68825/69854",
+			"https://t.me/c/1867281438/69696/70048",
+			"https://t.me/c/1867281438/70040/71219",
+			"https://telegra.ph/Gorod-v-Respublike-Serbskoj-Bosnii-i-Gercegovine-04-01",
+			"https://t.me/c/1867281438/72052/73010",
+			"https://telegra.ph/Geoint-42-04-12",
+			"https://t.me/c/1867281438/73233/73530",
+			"https://t.me/c/1867281438/73521/73857",
+			"https://t.me/c/1867281438/73842/74007",
+			"https://t.me/c/1867281438/74284/74482",
+			"https://t.me/c/1867281438/74797/75141",
+			"https://t.me/c/1867281438/78934/79996",
+			"https://t.me/c/1867281438/79405/79889",
+			"https://t.me/c/1867281438/80585/80608",
+			"https://t.me/c/1867281438/80722/80904",
+			"https://t.me/c/1867281438/81403/81651",
+			"https://t.me/c/1867281438/81611/81791",
+			"https://t.me/c/1867281438/82348/82769",
+			"https://t.me/c/1867281438/82777/83223",
+			"https://telegra.ph/Reshenie-GEOINT-56-05-29",
+			"https://t.me/c/1867281438/84161/84507",
+			"https://t.me/c/1867281438/84269/84381",
+			"https://t.me/c/1867281438/84379/84706",
+			"https://t.me/c/1867281438/84624/85307",
+			"https://telegra.ph/Reshenie-GEOSINT61-06-14",
+			"https://t.me/c/1867281438/85783/85942",
+			"https://t.me/c/1867281438/85940/86923",
+			"https://t.me/c/1867281438/86947/87370",
+			"https://t.me/c/1867281438/87387/87615?single",
+			"https://telegra.ph/Reshenie-zadachi-GEOINT-66-06-29",
+			"https://t.me/c/1867281438/87983/88437",
+			"https://telegra.ph/Lodka-est-A-esli-najdu-08-01",
+			"https://telegra.ph/GEOINT-69-RESHENIE-07-25",
+			"https://t.me/c/1867281438/93625/93730",
+			"https://t.me/c/1867281438/93721/94039",
+			"https://t.me/c/1867281438/94023/94442",
+			"https://t.me/c/1867281438/94645/94721",
+			"https://t.me/c/1867281438/94911/95382",
+			"https://telegra.ph/GEOINT-75-08-12",
+			"https://telegra.ph/GEOINT76--Rust-08-28",
+			"https://telegra.ph/GEOINT-77-08-30",
+			"https://telegra.ph/GEOINT-78-08-31",
+			"https://telegra.ph/GEOINT-79-09-20",
+			"https://t.me/c/1867281438/102423/102512",
+			"https://telegra.ph/GEOINT-81-09-27",
+			"https://telegra.ph/Geoint-82-12-04",
+			"https://telegra.ph/GEOINT-83-11-09",
+			"https://telegra.ph/GEOINT-84-11-22",
+			"https://telegra.ph/GEOINT-85-11-25",
+			"https://telegra.ph/GEOINT-86-11-28",
+			"https://t.me/c/1867281438/107548/107652",
+			"https://telegra.ph/GEOINT-88-12-01",
+			"https://telegra.ph/Geoint-89-12-05",
+			"https://telegra.ph/GEOINT-90-12-11",
+			"https://telegra.ph/Geoint-91-12-13",
+			"https://telegra.ph/GEOINT-92-01-04",
+			"https://telegra.ph/GEOINT-93-01-06",
+			"https://telegra.ph/GEOINT-94-01-09",
+			"https://telegra.ph/GEOINT-95-01-09",
+			"https://telegra.ph/GEOINT-96-01-12",
+			"https://telegra.ph/GEOINT-97-01-12",
+			"https://telegra.ph/GEOINT-98-01-16",
+			"https://telegra.ph/GEOINT-99-najti-kover-ayzek-sempai-01-17",
+			"https://telegra.ph/GEOINT-100-01-16",
+			"https://telegra.ph/GEOINT-101-01-29",
+			"https://t.me/c/1867281438/111419/111650",
+			"https://telegra.ph/GEOINT-103-01-31",
+			"https://telegra.ph/GEOINT-104-02-19",
+			"https://telegra.ph/GEOINT-105-02-14",
+			"https://telegra.ph/A-gde-to-gory-gory-A-za-nimi-nimi---Armeniya-moya-02-22",
+			"https://telegra.ph/GEOINT-107-02-23",
+			"https://telegra.ph/GEOINT-108-03-04",
+			"https://telegra.ph/GEOINT-109-02-27",
+			"https://telegra.ph/Geoint-110-03-06",
+			"https://telegra.ph/GEOINT-111-03-05",
+			"https://telegra.ph/GEOINT-112-03-12",
+			"https://t.me/c/1867281438/114342/114431",
+			"https://telegra.ph/GEOINT-114-03-13",
+			"https://telegra.ph/Poisk-zaborchika-vokrug-Parka-Kultury-i-Otdyha-03-15",
+			"https://telegra.ph/GEOINT-116-03-20",
+			"https://t.me/c/1867281438/114923/114959",
+			"https://telegra.ph/GEOINT-118-03-21-2",
+			"https://telegra.ph/GEOINT-119-03-23",
+			"https://telegra.ph/GEOINT-120-03-27-2",
+			"https://telegra.ph/GEOINT-121-03-30",
+			"https://telegra.ph/GEOINT-122-03-31",
+			"https://telegra.ph/GEOINT-123-04-02",
+			"https://telegra.ph/GEOINT-124-04-11",
+			"https://t.me/c/1867281438/115426/115552",
+			"https://telegra.ph/GEOINT-126-04-12",
+			"https://telegra.ph/Alternativnoe-reshenie-GEOINT-127-04-15",
+			"https://telegra.ph/GEOINT-128-04-13",
+			"https://t.me/c/1867281438/115771/115836",
+			"https://telegra.ph/GEOINT-130-04-17",
+			"https://telegra.ph/GEOIN-131-05-19",
+			"https://telegra.ph/Geoint132-04-21",
+			"https://telegra.ph/GEOINT-133-04-24",
+			"https://telegra.ph/GEOINT-134-05-16",
+			"https://telegra.ph/GEOINT-135-05-18",
+			"https://telegra.ph/GEOINT-136-05-23",
+			"https://telegra.ph/GEOINT-137-05-23",
+			"https://telegra.ph/GEOINT-138-05-29",
+			"https://telegra.ph/Geoint139-06-07",
+			"https://telegra.ph/GEOINT-140-06-09",
+			"https://telegra.ph/GEOINT-141-SHestiehtazhka-EHto-voobshche-zakonno-06-12",
+			"https://telegra.ph/GEOINT-142-06-13",
+			"https://telegra.ph/GEOINT-143-06-16",
+			"https://telegra.ph/GEOINT-144-linzotask-s-mobilnogo-06-16",
+			"https://telegra.ph/GEOINT-145-06-24",
+			"https://telegra.ph/GEOINT-146-06-23",
+			"https://telegra.ph/GEOINT-147-07-02",
+			"https://telegra.ph/GEOINT-148-07-12",
+			"https://telegra.ph/GEOINT-149-07-13",
+			"https://telegra.ph/GEOINT-150-07-19",
+			"https://telegra.ph/GEOINT-151-07-18",
+			"https://telegra.ph/GEOINT-152-07-28",
+			"https://t.me/c/1867281438/124170",
+			"https://telegra.ph/GEOINT-154-08-08",
+			"https://t.me/c/1867281438/124988/126040",
+			"https://telegra.ph/Alternativnoe-reshenie-GEOINT-156-08-21",
+			"https://t.me/c/1867281438/126801/129925?single",
+			"https://t.me/c/1867281438/130552/130955",
+			"https://telegra.ph/GEOINT-159-09-10",
+			"https://t.me/c/1867281438/135991/137280",
+			"https://t.me/c/1867281438/136801/138862",
+			"https://t.me/c/1867281438/137367/138751",
+			"https://teletype.in/@bolivia_team/geoint163",
+			"https://teletype.in/@denver_ft/GEOINT_164",
+			"https://t.me/c/1867281438/142052/146639?single",
+			"https://teletype.in/@tplvch/oCDGbKOziWa",
+			"https://t.me/c/1867281438/145468/146325",
+			"https://t.me/c/1867281438/146243/147575",
+			"https://t.me/c/1867281438/147153/147609",
+			"https://t.me/c/1867281438/147299/149122",
+			"https://telegra.ph/Reshenie-Geoint-171-10-07",
+			"https://telegra.ph/GEOINT-172-10-09",
+			"https://t.me/c/1867281438/154365/159265",
+			"https://t.me/c/1867281438/155656/159923",
+			"https://t.me/c/1867281438/160273/163618",
+			"https://teletype.in/@c_v_i/UtGCFxO-FLY",
+			"https://telegra.ph/GEOINT-177-11-10",
+			"https://telegra.ph/GEOINT178-11-12",
+			"https://telegra.ph/Geoint-179-11-14",
+			"https://teletype.in/@denver_ft/GEOINT_180",
+			"https://teletype.in/@mrsk_kt/ag0C_C2gQHi",
+			"https://t.me/c/1867281438/171677/171854",
+			"https://t.me/c/1867281438/173604/181695?single",
+			"https://t.me/c/1867281438/182571/183200",
+			"https://teletype.in/@wd_4o/2TteK0_9BKW",
+			"https://t.me/c/1867281438/185276/186049",
+			"https://t.me/c/1867281438/185276/186049",
+			"https://teletype.in/@kencovade/9a1xNbYP0aq",
+			"https://t.me/c/1867281438/186981/188329",
+			"https://teletype.in/@c_v_i/Flh7o5F3dP4",
+			"https://teletype.in/@gud1na/f-3_YIIhsq",
+			"https://t.me/c/1867281438/189762/189967",
+			"https://t.me/c/1867281438/189959/190268",
+			"https://teletype.in/@gud1na/emL8jy6IC3",
+			"https://teletype.in/@gud1na/72ooTzODfM",
+			"https://teletype.in/@gud1na/MKwPqMxXXz",
+			"https://t.me/c/1867281438/192777/193639",
+			"https://teletype.in/@wd_4o/7LdRaVamIQw",
+			"https://t.me/c/1867281438/194751/194980",
+			"https://test",
+        ];
+
+        for (let i = 0; i < 200; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            const taskColumn = document.createElement('div');
+            taskColumn.classList.add('column');
+
+            const writeupColumn = document.createElement('div');
+            writeupColumn.classList.add('column');
+
+            const taskButton = document.createElement('a');
+            taskButton.classList.add('button');
+            taskButton.textContent = `Task ${i + 1}`;
+            taskButton.href = taskLinks[i]; // Ссылка для Task
+            taskButton.target = '_blank'; // Открывать в новом окне
+            taskColumn.appendChild(taskButton);
+
+            const writeupButton = document.createElement('a');
+            writeupButton.classList.add('button');
+            writeupButton.textContent = `Writeup ${i + 1}`;
+            // Check if writeupLinks[i] exists before assigning it
+            writeupButton.href = writeupLinks[i] || "#"; // Assign link or default to '#' if not available
+            writeupButton.target = '_blank'; // Открывать в новом окне
+            writeupColumn.appendChild(writeupButton);
+
+            row.appendChild(taskColumn);
+            row.appendChild(writeupColumn);
+
+            buttonContainer.appendChild(row);
+        }
+    </script>
+
+</body>
+</html>
